@@ -1,8 +1,11 @@
 # El módulo sys sirve para interactuar con el intérprete.
 # Por ejemplo, sys.version muestra la versión de Python
-import sys 
+import sys
+
 # Pygame es una librería externa para crear juegos
 import pygame
+
+from settings import Settings
 
 class AlienInvasion:
     """Clase general para gestionar los recursos y el comportamiento del 
@@ -17,14 +20,14 @@ class AlienInvasion:
         # el bucle principal.
         # Creamos una instancia de la clase Clock contenida en el módulo time
         self.clock = pygame.time.Clock()
+        self.settings = Settings()
         # display es el módulo de pygame para manejar pantallas y ventanas.
         # Inicializa una ventana. El objeto creado se llama Surface (Superficie)
         # Las dimensiones se pasan como una tupla de dos valores
-        self.screen = pygame.display.set_mode((1200, 800))
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
         # Establece el nombre de la ventana
         pygame.display.set_caption("Alien Invasion")
-        # Configurar el color de fondo
-        self.bg_color = (230, 230, 230)
 
     def run_game(self):
         """Inicializa el bucle principal para el juego."""
@@ -39,7 +42,7 @@ class AlienInvasion:
 
             # Redibuja la pantalla en cada paso por el bucle
             # Con fill() rellenamos la pantalla con el color de fondo
-            self.screen.fill(self.bg_color)
+            self.screen.fill(self.settings.bg_color)
             # Hace visible la última pantalla dibujada
             pygame.display.flip()
             # El método tick recibe un argumento: la tasa de frames del juego
