@@ -37,24 +37,33 @@ class AlienInvasion:
     def run_game(self):
         """Inicializa el bucle principal para el juego."""
         while True:
-            # Busca eventos de teclado y ratón.
-            # La función devuelve como lista los eventos detectados
-            for event in pygame.event.get():
-                # Si el evento del usuario es pulsar la X de la ventana
-                # se sale de python (termina la ejecución)
-                if event.type == pygame.QUIT:
-                    sys.exit()
-
-            # Redibuja la pantalla en cada paso por el bucle
-            # Con fill() rellenamos la pantalla con el color de fondo
-            self.screen.fill(self.settings.bg_color)
-            # Después de rellenar el fondo dibujamos la nave en la pantalla
-            self.ship.blitme()
-            # Hace visible la última pantalla dibujada
-            pygame.display.flip()
+            self._check_events()
+            self._update_screen()
             # El método tick recibe un argumento: la tasa de frames del juego
             # en milisegundos.
             self.clock.tick(60)
+
+    def _check_events(self):
+        """Responde a pulsaciones de teclas y eventos de ratón."""
+        # Busca eventos de teclado y ratón.
+        # La función devuelve como lista los eventos detectados
+        for event in pygame.event.get():
+            # Si el evento del usuario es pulsar la X de la ventana
+            # se sale de python (termina la ejecución)
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+    def _update_screen(self):
+        """Actualiza las imágenes en la pantalla y cambia a la pantalla 
+        nueva."""
+        # Redibuja la pantalla en cada paso por el bucle
+        # Con fill() rellenamos la pantalla con el color de fondo
+        self.screen.fill(self.settings.bg_color)
+        # Después de rellenar el fondo dibujamos la nave en la pantalla
+        self.ship.blitme()
+        # Hace visible la última pantalla dibujada
+        pygame.display.flip()
+
 
 # Este bloque solo se ejecuta si se llama al archivo directamente
 if __name__ == '__main__':
