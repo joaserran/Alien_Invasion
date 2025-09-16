@@ -23,6 +23,18 @@ class Ship:
         # de la pantalla.
         self.rect.midbottom = self.screen_rect.midbottom
 
+        # Bandera de movimiento; empieza con una bandera que no se mueve
+        self.moving_right = False
+        self.moving_left = False
+
+    def update(self):
+        """Actualiza la posición de la nave en función de la bandera de 
+        movimiento"""
+        if self.moving_right:
+            self.rect.x += 1
+        if self.moving_left:
+            self.rect.x -= 1
+
     def blitme(self):
         """Dibuja la nave en su ubicación actual."""
         # blit() es un método de pygame que dibuja una imagen sobre otra

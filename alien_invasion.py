@@ -38,6 +38,10 @@ class AlienInvasion:
         """Inicializa el bucle principal para el juego."""
         while True:
             self._check_events()
+            # Actualizamos la posición de la nave después de comprobar los 
+            # eventos y antes de actualizar la pantalla para que quede la nave
+            # dibujada.
+            self.ship.update() 
             self._update_screen()
             # El método tick recibe un argumento: la tasa de frames del juego
             # en milisegundos.
@@ -52,6 +56,20 @@ class AlienInvasion:
             # se sale de python (termina la ejecución)
             if event.type == pygame.QUIT:
                 sys.exit()
+            # Detectar el evento KEYDOWN. Si el usuario pulsa la tecla derecha
+            # la nave se mueve a la derecha.
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = True
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = True
+
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = False
+                
 
     def _update_screen(self):
         """Actualiza las imágenes en la pantalla y cambia a la pantalla 
